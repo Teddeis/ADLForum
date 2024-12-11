@@ -1,0 +1,11 @@
+    <shape xmlns:android="http://schemas.android.com/apk/res/android">
+        <stroke
+            android:width="2dp"
+            android:color="#2196F3"/> <!-- Цвет границы -->
+        <corners android:radius="8dp"/> <!-- Скругленные углы -->
+        <padding
+            android:left="8dp"
+            android:right="8dp"
+            android:top="4dp"
+            android:bottom="4dp"/> <!-- Внутренние отступы -->
+    </shape>
