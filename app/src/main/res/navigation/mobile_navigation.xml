@@ -14,7 +14,7 @@
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.adlforum.ui.dashboard.DashboardFragment"
-        android:label=""
+        android:label="Добавить тему"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
