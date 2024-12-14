@@ -12,6 +12,11 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.adlforum.databinding.ActivityMainBinding;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
@@ -33,5 +38,5 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
-
 }
+
