@@ -1,7 +1,9 @@
 package com.example.adlforum;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
+import com.example.adlforum.ui.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,13 +14,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.adlforum.databinding.ActivityMainBinding;
 
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-
 public class MainActivity extends AppCompatActivity {
 
+    TextView textView;
     private ActivityMainBinding binding;
 
     @Override
@@ -37,6 +35,19 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+    }
+
+    public void displayUserEmail() {
+        textView = findViewById(R.id.text_notifications);
+
+        // Simulating user email fetch (replace with actual logic as needed)
+        User user = new User();
+
+        if (user.getEmail() != null) {
+            textView.setText(user.getEmail());
+        } else {
+            textView.setText("No email available");
+        }
     }
 }
-

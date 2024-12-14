@@ -51,24 +51,33 @@ public class Login extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Получаем значения из полей ввода
-                String email = editTextEmail.getText().toString();
-                String password = editTextPassword.getText().toString();
+                login();
+            }
+        });
 
-                AuthService.login(email, password, new AuthService.LoginCallback() {
-                    @Override
-                    public void onSuccess(User user) {
-                        runOnUiThread(() -> {
-                            Toast.makeText(Login.this, "Добро пожаловать, " + user.getEmail(), Toast.LENGTH_SHORT).show();
-                            // Переход на следующий экран
-                        });
-                    }
 
-                    @Override
-                    public void onFailure(String message) {
-                        runOnUiThread(() -> Toast.makeText(Login.this, message, Toast.LENGTH_SHORT).show());
-                    }
+    }
+
+    public  void  login()
+    {
+        String email = editTextEmail.getText().toString();
+        String password = editTextPassword.getText().toString();
+
+        AuthService.login(this,email,password, new AuthService.LoginCallback() {
+            @Override
+            public void onSuccess(User user) {
+                runOnUiThread(() -> {
+                    Toast.makeText(Login.this, "Добро пожаловать, " + user.getEmail(), Toast.LENGTH_SHORT).show();
+                    // Переход на следующий экран
+                    Intent intent = new Intent(Login.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 });
+            }
+
+            @Override
+            public void onFailure(String message) {
+                runOnUiThread(() -> Toast.makeText(Login.this, message, Toast.LENGTH_SHORT).show());
             }
         });
     }
