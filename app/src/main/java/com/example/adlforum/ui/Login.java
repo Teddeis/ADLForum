@@ -29,7 +29,7 @@ import java.util.Map;
 public class Login extends AppCompatActivity {
 
     private EditText editTextEmail, editTextPassword;
-    private Button buttonLogin;
+    private Button buttonLogin,buttonRegistrationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class Login extends AppCompatActivity {
         editTextEmail = findViewById(R.id.editTextTextEmailAddress);
         editTextPassword = findViewById(R.id.editTextTextPassword);
         buttonLogin = findViewById(R.id.button3);
+        buttonRegistrationView = findViewById(R.id.button2);
 
         // Устанавливаем обработчик нажатия на кнопку "Войти"
         buttonLogin.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +56,15 @@ public class Login extends AppCompatActivity {
             }
         });
 
-
+        // Устанавливаем обработчик нажатия на кнопку "Войти"
+        buttonRegistrationView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, Registration.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     public  void  login()

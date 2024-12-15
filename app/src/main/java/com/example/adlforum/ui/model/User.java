@@ -1,13 +1,21 @@
 package com.example.adlforum.ui.model;
+import com.google.gson.annotations.SerializedName;
 
 public class User {
+    @SerializedName("id")
     private int id;
+    @SerializedName("username")
     private String username;
+    @SerializedName("email")
     public String email;
+    @SerializedName("password_hash")
     public String password_hash;
+    @SerializedName("role")
     private String role;
-    public boolean is_active;  // поле для активности пользователя
-    private String avatar_url;  // ссылка на аватар пользователя
+    @SerializedName("is_active")
+    public boolean is_active = true;  // поле для активности пользователяэ
+    @SerializedName("avatar_url")
+    private String avatar_url = "https://grandfestival.vcht.center/storage/exponents/logos/2186_logo.jpg";  // ссылка на аватар пользователя
 
     // Геттеры и сеттеры
 
