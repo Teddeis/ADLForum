@@ -1,8 +1,7 @@
-package com.example.adlforum.ui;
+package com.example.adlforum.ui.Account;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,17 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import com.google.gson.Gson;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 import com.example.adlforum.MainActivity;
 import com.example.adlforum.R;
+import com.example.adlforum.ui.Service.AuthService;
 import com.example.adlforum.ui.model.User;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class Login extends AppCompatActivity {

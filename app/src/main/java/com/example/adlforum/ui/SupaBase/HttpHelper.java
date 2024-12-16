@@ -1,8 +1,9 @@
-package com.example.adlforum.ui;
+package com.example.adlforum.ui.SupaBase;
+
 import okhttp3.*;
 
 public class HttpHelper {
-    static final OkHttpClient client = new OkHttpClient();
+    public static final OkHttpClient client = new OkHttpClient();
 
     public static void post(String url, String json, Callback callback) {
         RequestBody body = RequestBody.create(json, MediaType.get("application/json; charset=utf-8"));

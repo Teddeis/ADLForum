@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.adlforum.databinding.FragmentNotificationsBinding;
-import com.example.adlforum.ui.Login;
+import com.example.adlforum.ui.Account.Login;
 
 public class NotificationsFragment extends Fragment {
 
@@ -34,6 +34,7 @@ public class NotificationsFragment extends Fragment {
         // Извлекаем почту из SharedPreferences
         SharedPreferences prefs = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         String email = prefs.getString("email", "Неизвестный пользователь");
+
 
         // Находим TextView и устанавливаем в него почту
         TextView emailTextView = binding.textNotifications;

@@ -1,15 +1,14 @@
-package com.example.adlforum.ui;
+package com.example.adlforum.ui.Service;
 
-import static com.example.adlforum.ui.SupabaseConfig.SUPABASE_KEY;
-import static com.example.adlforum.ui.SupabaseConfig.USERS_TABLE;
-import static com.example.adlforum.ui.SupabaseConfig.SUPABASE_URL;
+import static com.example.adlforum.ui.SupaBase.SupabaseConfig.SUPABASE_KEY;
+import static com.example.adlforum.ui.SupaBase.SupabaseConfig.SUPABASE_URL;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import com.example.adlforum.ui.SupaBase.HttpHelper;
 import com.example.adlforum.ui.model.User;
 import com.google.gson.Gson;
 import okhttp3.*;
@@ -20,7 +19,7 @@ public class AuthService {
 
     // Добавьте параметр context в метод login
     public static void login(Context context, String email, String password, LoginCallback callback) {
-        String url = SUPABASE_URL + "/rest/v1/" + USERS_TABLE + "?email=eq." + email;
+        String url = SUPABASE_URL + "/rest/v1/" + "users" + "?email=eq." + email;
 
         Request request = new Request.Builder()
                 .url(url)
@@ -48,6 +47,8 @@ public class AuthService {
                                 SharedPreferences prefs = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = prefs.edit();
                                 editor.putString("email", email); // Сохраняем почту
+                                editor.putString("username", user.getUsername()); // Сохраняем username
+                                editor.putString("id", String.valueOf(user.getId())); // Сохраняем ID пользователя
                                 editor.apply();
 
                                 callback.onSuccess(user);

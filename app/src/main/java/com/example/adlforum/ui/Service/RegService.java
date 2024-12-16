@@ -1,14 +1,14 @@
-package com.example.adlforum.ui;
+package com.example.adlforum.ui.Service;
 
-import static com.example.adlforum.ui.SupabaseConfig.SUPABASE_KEY;
-import static com.example.adlforum.ui.SupabaseConfig.USERS_TABLE;
-import static com.example.adlforum.ui.SupabaseConfig.SUPABASE_URL;
+import static com.example.adlforum.ui.SupaBase.SupabaseConfig.SUPABASE_KEY;
+import static com.example.adlforum.ui.SupaBase.SupabaseConfig.SUPABASE_URL;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 
+import com.example.adlforum.ui.SupaBase.HttpHelper;
 import com.example.adlforum.ui.model.User;
 import com.google.gson.Gson;
 
@@ -19,7 +19,7 @@ import java.io.IOException;
 public class RegService {
 
     public static void register(Context context, String username, String email, String password, RegisterCallback callback) {
-        String url = SUPABASE_URL + "/rest/v1/" + USERS_TABLE;
+        String url = SUPABASE_URL + "/rest/v1/" + "users";
 
         // Создание объекта нового пользователя
         User newUser = new User();
