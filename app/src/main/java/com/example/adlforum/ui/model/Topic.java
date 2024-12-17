@@ -74,7 +74,7 @@ public class Topic {
     }
 
     public String getContent() {
-        return content.length() > 100 ? content.substring(0, 100) + "..." : content;
+        return content;
     }
 
     public void setContent(String content) {

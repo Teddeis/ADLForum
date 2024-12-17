@@ -1,4 +1,4 @@
-package com.example.adlforum.ui.Adapter;
+package com.example.adlforum.ui;
 
 import android.content.Context;
 import android.view.LayoutInflater;

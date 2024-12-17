@@ -15,6 +15,9 @@
         android:theme="@style/Theme.ADLForum"
         tools:targetApi="31">
         <activity
+            android:name=".ui.Topic.Details"
+            android:exported="false" />
+        <activity
             android:name=".ui.Account.Registration"
             android:exported="false" />
         <activity

@@ -46,7 +46,7 @@ public class TopicCreateService {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    callback.onSuccess("Тема успешно создана!");
+                    callback.onSuccess("Тема успешно создана, ожидайте решение модератора!");
                 } else {
                     callback.onFailure("Ошибка создания темы: Код " + response.code());
                 }
