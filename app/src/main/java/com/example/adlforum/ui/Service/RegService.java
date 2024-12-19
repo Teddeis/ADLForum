@@ -3,40 +3,32 @@ package com.example.adlforum.ui.Service;
 import static com.example.adlforum.ui.SupaBase.SupabaseConfig.SUPABASE_KEY;
 import static com.example.adlforum.ui.SupaBase.SupabaseConfig.SUPABASE_URL;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
 import androidx.annotation.NonNull;
 
 import com.example.adlforum.ui.SupaBase.HttpHelper;
 import com.example.adlforum.ui.model.User;
 import com.google.gson.Gson;
 
-import okhttp3.*;
-
 import java.io.IOException;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class RegService {
+    private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    public static void register(Context context, String username, String email, String password, RegisterCallback callback) {
-        if (context == null) {
-            callback.onFailure("Ошибка: контекст null");
-            return;
-        }
+    // Регистрация нового пользователя
+    public static void register(User newUser, RegisterCallback callback) {
+        String url = SUPABASE_URL + "/rest/v1/users";
 
-        String url = SUPABASE_URL + "/rest/v1/" + "users";
+        // Преобразуем объект User в JSON
+        String jsonBody = new Gson().toJson(newUser);
+        RequestBody body = RequestBody.create(jsonBody, JSON);
 
-        // Создание объекта нового пользователя
-        User newUser = new User();
-        newUser.setUsername(username);
-        newUser.setEmail(email);
-        newUser.setPasswordHash(password);
-
-        Gson gson = new Gson();
-        String json = gson.toJson(newUser);
-
-        // Формирование запроса
-        RequestBody body = RequestBody.create(json, MediaType.parse("application/json"));
         Request request = new Request.Builder()
                 .url(url)
                 .post(body)
@@ -53,46 +45,20 @@ public class RegService {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if (response.body() == null) {
-                    callback.onFailure("Ошибка: тело ответа от сервера пустое");
-                    return;
-                }
-
-                String responseData = response.body().string();
                 if (response.isSuccessful()) {
-                    try {
-                        // Преобразование JSON
-                        User createdUser = gson.fromJson(responseData, User.class);
-                        if (createdUser == null) {
-                            callback.onFailure("Ошибка: невозможно преобразовать данные пользователя из JSON: " + responseData);
-                            return;
-                        }
-
-                        // Сохранение всех данных пользователя
-                        SharedPreferences prefs = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putString("email", email); // Сохраняем почту
-                        editor.putString("username", createdUser.getUsername()); // Сохраняем username
-                        editor.putString("id", String.valueOf(createdUser.getId())); // Сохраняем ID пользователя
-                        editor.apply();
-
-                        callback.onSuccess(createdUser);
-                    } catch (Exception e) {
-                        callback.onFailure("Ошибка обработки данных: " + e.getMessage() + ", JSON: " + responseData);
-                    }
-            } else if (response.code() == 409) { // Обработка конфликта
+                    callback.onSuccess("Регистрация успешна! Добро пожаловать в сообщество!");
+                } else if (response.code() == 409) { // Обработка конфликта
                     callback.onFailure("Пользователь с таким email или username уже существует.");
                 } else {
-                    callback.onFailure("Не удалось зарегистрироваться. Код ошибки: " + response.code());
+                    callback.onFailure("Ошибка регистрации: Код " + response.code());
                 }
             }
         });
     }
 
-
-    // Интерфейс обратного вызова для регистрации
+    // Интерфейс для регистрации
     public interface RegisterCallback {
-        void onSuccess(User user);
+        void onSuccess(String message);
         void onFailure(String message);
     }
 }

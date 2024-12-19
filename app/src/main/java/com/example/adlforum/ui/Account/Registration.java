@@ -73,17 +73,20 @@ public class Registration extends AppCompatActivity {
             return;
         }
 
-        RegService.register(this, username, email, password, new RegService.RegisterCallback() {
+        // Создаём объект нового пользователя
+        User newUser = new User();
+        newUser.setUsername(username);
+        newUser.setEmail(email);
+        newUser.setPasswordHash(password);
+
+        // Вызываем метод регистрации
+        RegService.register(newUser, new RegService.RegisterCallback() {
             @Override
-            public void onSuccess(User user) {
-                if (user == null) {
-                    runOnUiThread(() -> Toast.makeText(Registration.this, "Ошибка при регистрации", Toast.LENGTH_SHORT).show());
-                    return;
-                }
-                else
+            public void onSuccess(String message) {
                 runOnUiThread(() -> {
-                    Toast.makeText(Registration.this, "Регистрация успешна, " + user.getEmail(), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Registration.this, MainActivity.class);
+                    Toast.makeText(Registration.this, message, Toast.LENGTH_SHORT).show();
+                    // Переход на главный экран после успешной регистрации
+                    Intent intent = new Intent(Registration.this, Login.class);
                     startActivity(intent);
                     finish();
                 });
