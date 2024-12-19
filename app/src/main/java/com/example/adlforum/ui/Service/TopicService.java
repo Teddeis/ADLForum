@@ -22,7 +22,7 @@ import okhttp3.Response;
 public class TopicService {
 
     public static void getTopics(TopicCallback callback) {
-        String url = SUPABASE_URL + "/rest/v1/topics?select=title,content";
+        String url = SUPABASE_URL + "/rest/v1/topics?select=title,content&status=eq.true";
 
         Request request = new Request.Builder()
                 .url(url)

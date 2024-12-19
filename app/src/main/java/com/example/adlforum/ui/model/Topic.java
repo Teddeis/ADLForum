@@ -29,7 +29,7 @@ public class Topic {
     private int likes_count;
 
     @SerializedName("status")
-    private boolean status;
+    private Boolean status;
 
     @SerializedName("author")
     public String author;
@@ -105,7 +105,7 @@ public class Topic {
         this.likes_count = likes_count;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 

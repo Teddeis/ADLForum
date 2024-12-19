@@ -19,6 +19,11 @@ import java.io.IOException;
 public class RegService {
 
     public static void register(Context context, String username, String email, String password, RegisterCallback callback) {
+        if (context == null) {
+            callback.onFailure("Ошибка: контекст null");
+            return;
+        }
+
         String url = SUPABASE_URL + "/rest/v1/" + "users";
 
         // Создание объекта нового пользователя
@@ -48,23 +53,34 @@ public class RegService {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if (response.body() == null) {
+                    callback.onFailure("Ошибка: тело ответа от сервера пустое");
+                    return;
+                }
+
+                String responseData = response.body().string();
                 if (response.isSuccessful()) {
                     try {
-                        String responseData = response.body().string();
-                        System.out.println("Ответ сервера: " + responseData); // Лог для отладки
+                        // Преобразование JSON
                         User createdUser = gson.fromJson(responseData, User.class);
+                        if (createdUser == null) {
+                            callback.onFailure("Ошибка: невозможно преобразовать данные пользователя из JSON: " + responseData);
+                            return;
+                        }
 
                         // Сохранение всех данных пользователя
                         SharedPreferences prefs = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = prefs.edit();
-                        editor.putString("email", createdUser.getEmail());
+                        editor.putString("email", email); // Сохраняем почту
+                        editor.putString("username", createdUser.getUsername()); // Сохраняем username
+                        editor.putString("id", String.valueOf(createdUser.getId())); // Сохраняем ID пользователя
                         editor.apply();
 
                         callback.onSuccess(createdUser);
                     } catch (Exception e) {
-                        callback.onFailure("Ошибка обработки данных: " + e.getMessage());
+                        callback.onFailure("Ошибка обработки данных: " + e.getMessage() + ", JSON: " + responseData);
                     }
-                } else if (response.code() == 409) { // Обработка конфликта
+            } else if (response.code() == 409) { // Обработка конфликта
                     callback.onFailure("Пользователь с таким email или username уже существует.");
                 } else {
                     callback.onFailure("Не удалось зарегистрироваться. Код ошибки: " + response.code());
@@ -73,21 +89,6 @@ public class RegService {
         });
     }
 
-            private static void saveUserData(Context context, String username, String email) {
-        if (context != null) {
-            SharedPreferences prefs = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = prefs.edit();
-            try {
-                editor.putString("email", email);
-                editor.apply();
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new RuntimeException("Ошибка сохранения данных пользователя: " + e.getMessage());
-            }
-        } else {
-            throw new IllegalStateException("Контекст не должен быть null при сохранении данных пользователя.");
-        }
-    }
 
     // Интерфейс обратного вызова для регистрации
     public interface RegisterCallback {

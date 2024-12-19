@@ -59,6 +59,11 @@ public class Registration extends AppCompatActivity {
     }
 
     public void register() {
+        if (editTextUsername == null || editTextEmail == null || editTextPassword == null) {
+            Toast.makeText(this, "Ошибка инициализации полей ввода", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         String username = editTextUsername.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -71,6 +76,11 @@ public class Registration extends AppCompatActivity {
         RegService.register(this, username, email, password, new RegService.RegisterCallback() {
             @Override
             public void onSuccess(User user) {
+                if (user == null) {
+                    runOnUiThread(() -> Toast.makeText(Registration.this, "Ошибка при регистрации", Toast.LENGTH_SHORT).show());
+                    return;
+                }
+                else
                 runOnUiThread(() -> {
                     Toast.makeText(Registration.this, "Регистрация успешна, " + user.getEmail(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Registration.this, MainActivity.class);

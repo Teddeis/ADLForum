@@ -60,7 +60,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onSuccess(String message) {
                 getActivity().runOnUiThread(() -> {
-                    Toast.makeText(getContext(), "Тема успешно создана!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Тема успешно отправлена на модерацию!", Toast.LENGTH_SHORT).show();
                     editTextTitle.setText("");
                     editTextContent.setText("");
                 });

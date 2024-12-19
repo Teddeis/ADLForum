@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.adlforum.ui.model.Topic;
 import com.example.adlforum.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TopicAdapter extends BaseAdapter {
