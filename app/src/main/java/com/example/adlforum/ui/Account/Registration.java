@@ -7,32 +7,26 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.adlforum.MainActivity;
 import com.example.adlforum.R;
 import com.example.adlforum.ui.Service.RegService;
 import com.example.adlforum.ui.model.User;
+
+import java.util.regex.Pattern;
 
 public class Registration extends AppCompatActivity {
 
     private EditText editTextEmail, editTextPassword, editTextUsername;
     private Button buttonRegister, buttonBackToLogin;
 
+    // Регулярное выражение для валидации email
+    private static final String EMAIL_PATTERN = "[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_registation);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
         editTextEmail = findViewById(R.id.editTextEmailAddress);
         editTextPassword = findViewById(R.id.editTextTextPassword);
@@ -73,6 +67,12 @@ public class Registration extends AppCompatActivity {
             return;
         }
 
+        // Проверка корректности email с использованием регулярного выражения
+        if (!Pattern.matches(EMAIL_PATTERN, email)) {
+            Toast.makeText(this, "Пожалуйста, введите корректный email", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // Создаём объект нового пользователя
         User newUser = new User();
         newUser.setUsername(username);
@@ -85,7 +85,7 @@ public class Registration extends AppCompatActivity {
             public void onSuccess(String message) {
                 runOnUiThread(() -> {
                     Toast.makeText(Registration.this, message, Toast.LENGTH_SHORT).show();
-                    // Переход на главный экран после успешной регистрации
+                    // Переход на экран логина после успешной регистрации
                     Intent intent = new Intent(Registration.this, Login.class);
                     startActivity(intent);
                     finish();
