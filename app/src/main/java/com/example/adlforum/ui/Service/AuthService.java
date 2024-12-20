@@ -50,6 +50,9 @@ public class AuthService {
                                 editor.putString("email", email); // Сохраняем почту
                                 editor.putString("username", user.getUsername()); // Сохраняем username
                                 editor.putString("id", String.valueOf(user.getId())); // Сохраняем ID пользователя
+                                editor.putString("avatar", user.getAvatarUrl()); // Сохраняем avatar пользователя
+                                editor.putString("status", String.valueOf(user.is_active)); // Сохраняем avatar пользователя
+
                                 editor.apply();
 
                                 callback.onSuccess(user);
