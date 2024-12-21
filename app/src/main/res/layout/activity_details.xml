@@ -27,6 +27,17 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/topic_ds_s"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="id"
+                android:visibility="gone"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+            <TextView
                 android:id="@+id/topic_title_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Topic {
     @SerializedName("id")
-    private int id;
+    private String id;
 
     @SerializedName("user_id")
     private int user_id;
@@ -49,11 +49,11 @@ public class Topic {
         this.content = content;
     }
 
-    public int getId() {
+    public String getIds() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setIds(String id) {
         this.id = id;
     }
 

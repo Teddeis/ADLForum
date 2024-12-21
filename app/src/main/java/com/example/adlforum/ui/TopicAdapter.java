@@ -43,10 +43,12 @@ public class TopicAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.list_item_topic, parent, false);
         }
 
+        TextView ids = convertView.findViewById(R.id.topicids);
         TextView title = convertView.findViewById(R.id.topic_title);
         TextView content = convertView.findViewById(R.id.topic_content);
 
         Topic topic = topics.get(position);
+        ids.setText(topic.getIds());
         title.setText(topic.getTitle());
         content.setText(topic.getContent());
 

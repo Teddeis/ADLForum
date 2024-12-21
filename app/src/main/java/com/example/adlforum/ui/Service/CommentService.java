@@ -6,6 +6,7 @@ import static com.example.adlforum.ui.SupaBase.SupabaseConfig.SUPABASE_URL;
 import androidx.annotation.NonNull;
 
 import com.example.adlforum.ui.SupaBase.HttpHelper;
+import com.example.adlforum.ui.model.Comment;
 import com.example.adlforum.ui.model.Topic;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -19,10 +20,10 @@ import okhttp3.Callback;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class TopicService {
+public class CommentService {
 
-    public static void getTopics(TopicCallback callback) {
-        String url = SUPABASE_URL + "/rest/v1/topics?select=id,title,content&status=eq.true";
+    public static void getComment(CommentService.CommentCallback callback) {
+        String url = SUPABASE_URL + "/rest/v1/comments?select=id_topics,author,avatar,comments";
 
         Request request = new Request.Builder()
                 .url(url)
@@ -43,10 +44,10 @@ public class TopicService {
                     String responseData = response.body().string();
                     try {
                         // Преобразование JSON в список объектов Topic
-                        Type listType = new TypeToken<List<Topic>>() {}.getType();
-                        List<Topic> topics = new Gson().fromJson(responseData, listType);
+                        Type listType = new TypeToken<List<Comment>>() {}.getType();
+                        List<Comment> comments = new Gson().fromJson(responseData, listType);
 
-                        callback.onSuccess(topics);
+                        callback.onSuccess(comments);
                     } catch (Exception e) {
                         callback.onFailure("Ошибка обработки данных: " + e.getMessage());
                     }
@@ -58,8 +59,8 @@ public class TopicService {
     }
 
     // Интерфейс обратного вызова
-    public interface TopicCallback {
-        void onSuccess(List<Topic> topics);
+    public interface CommentCallback {
+        void onSuccess(List<Comment> comments);
         void onFailure(String message);
     }
 }

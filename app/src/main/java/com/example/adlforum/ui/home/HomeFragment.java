@@ -56,6 +56,7 @@ public class HomeFragment extends Fragment {
 
                         // Переход на DetailsActivity
                         Intent intent = new Intent(getActivity(), Details.class);
+                        intent.putExtra("id", selectedTopic.getIds());
                         intent.putExtra("topic_title", selectedTopic.getTitle());
                         intent.putExtra("topic_description", selectedTopic.getContent());
                         startActivity(intent);

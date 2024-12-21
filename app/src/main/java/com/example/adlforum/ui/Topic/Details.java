@@ -1,5 +1,6 @@
 package com.example.adlforum.ui.Topic;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -33,13 +34,16 @@ public class Details extends AppCompatActivity {
         });
 
         // Получение данных из Intent
+        String sds = getIntent().getStringExtra("id");
         String title = getIntent().getStringExtra("topic_title");
         String description = getIntent().getStringExtra("topic_description");
 
         // Установка данных в TextView
+        TextView sss = findViewById(R.id.topic_ds_s);
         TextView textViewTitle = findViewById(R.id.topic_title_details);
         TextView textViewDescription = findViewById(R.id.topic_content_details);
 
+        sss.setText(sds);
         textViewTitle.setText(title);
         textViewDescription.setText(description);
 
