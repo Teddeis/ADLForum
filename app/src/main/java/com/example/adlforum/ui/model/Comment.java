@@ -16,12 +16,12 @@ public class Comment {
     @SerializedName("author")
     private String author;
     @SerializedName("avatar")
-    private String avatar;
+    private int avatar;
     @SerializedName("comments")
     private String comments;
 
     // Конструктор
-    public Comment(int id, int idUsers, int idTopics, String author, String avatar, String comments) {
+    public Comment(int id, int idUsers, int idTopics, String author, int avatar, String comments) {
         this.id = id;
         this.idUsers = idUsers;
         this.idTopics = idTopics;
@@ -63,11 +63,11 @@ public class Comment {
         this.author = author;
     }
 
-    public String getAvatar() {
+    public int getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(String avatar) {
+    public void setAvatar(int avatar) {
         this.avatar = avatar;
     }
 

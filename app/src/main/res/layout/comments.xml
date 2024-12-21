@@ -3,42 +3,42 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="16dp"
+    android:background="?attr/colorSurface">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <!-- Горизонтальный блок для картинки и имени автора -->
+    <!-- Изображение автора (опционально, как аватар) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="8dp">
+        android:gravity="center_vertical">
 
-        <ImageView
-            android:id="@+id/author_image"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="8dp" />
 
+
+        <!-- Информация об авторе -->
         <TextView
             android:id="@+id/author"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="author"
+            android:layout_gravity="center_vertical"
+            android:text="Author Name"
             android:textSize="16sp"
+            android:textColor="?attr/colorOnSurface"
             android:textStyle="bold" />
     </LinearLayout>
 
+    <!-- Текст комментария -->
     <TextView
         android:id="@+id/comment"
-        android:textColor="@color/textSecondary"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="comment"
+        android:layout_marginTop="8dp"
+        android:text="This is a sample comment text"
         android:textSize="14sp"
-        android:maxLines="2"
-        android:layout_marginTop="8dp" />
+        android:textColor="?attr/colorOnSurface"
+        android:background="@drawable/comment_background"
+        android:padding="12dp"
+        android:elevation="2dp"
+        android:maxLines="5"
+        android:ellipsize="end" />
 </LinearLayout>

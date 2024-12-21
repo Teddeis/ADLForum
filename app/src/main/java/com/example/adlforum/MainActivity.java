@@ -69,17 +69,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void displayAvatar() {
-        imageView = findViewById(R.id.author_image);
-
-        // Simulating user email fetch (replace with actual logic as needed)
-        User user = new User();
-
-        if (user.getEmail() != null) {
-            new LoadImageTask(imageView).execute(user.getAvatarUrl());
-        }
-    }
-
     public static class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
         private ImageView imageView;
 

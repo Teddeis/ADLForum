@@ -23,7 +23,7 @@ import okhttp3.Response;
 public class CommentService {
 
     public static void getComment(CommentService.CommentCallback callback) {
-        String url = SUPABASE_URL + "/rest/v1/comments?select=id_topics,author,avatar,comments";
+        String url = SUPABASE_URL + "/rest/v1/comments?select=id_topics,author,comments";
 
         Request request = new Request.Builder()
                 .url(url)
@@ -43,7 +43,7 @@ public class CommentService {
                 if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     try {
-                        // Преобразование JSON в список объектов Topic
+                        // Преобразование JSON в список объектов Comments
                         Type listType = new TypeToken<List<Comment>>() {}.getType();
                         List<Comment> comments = new Gson().fromJson(responseData, listType);
 
